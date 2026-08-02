@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="ブラウザだけで請求書・見積書を作成できます。入力内容は外部へ送信されません。">
+  <title>請求書を作る | 無料請求書メーカー</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body class="maker-page">
+  <header class="site-header app-header">
+    <a class="brand" href="index.html" aria-label="RYOSEIWORLD 無料請求書メーカー トップ">
+      <span class="brand-mark">RYOSEIWORLD</span>
+      <span class="brand-product">無料請求書メーカー</span>
+    </a>
+    <a class="back-link" href="index.html">← トップへ戻る</a>
+  </header>
+
+  <main class="maker-main container">
+    <div class="maker-intro">
+      <p class="eyebrow">MAKE YOUR DOCUMENT</p>
+      <h1>質問に答えるだけで、<br><span>1枚のできあがり。</span></h1>
+      <p>入力内容はこのブラウザの中だけで処理されます。どこにも送信されません。</p>
+    </div>
+
+    <div class="workspace">
+      <section class="form-panel" aria-labelledby="form-title">
+        <div class="panel-heading">
+          <p class="panel-kicker">STEP 01 — INPUT</p>
+          <h2 id="form-title">書類の内容</h2>
+        </div>
+        <form id="document-form" autocomplete="off">
+          <fieldset>
+            <legend>書類の種類</legend>
+            <div class="choice-row">
+              <label class="choice-card"><input type="radio" name="documentType" value="invoice" checked><span>請求書</span></label>
+              <label class="choice-card"><input type="radio" name="documentType" value="estimate"><span>見積書</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>発行者情報</legend>
+            <div class="form-grid">
+              <label class="field full"><span>屋号・氏名 <b>必須</b></span><input id="issuerName" type="text" placeholder="例：山田デザイン / 山田 太郎"></label>
+              <label class="field full"><span>住所 <em>任意</em></span><input id="issuerAddress" type="text" placeholder="例：東京都渋谷区〇〇 1-2-3"></label>
+              <label class="field"><span>電話 <em>任意</em></span><input id="issuerPhone" type="tel" inputmode="tel" placeholder="03-1234-5678"></label>
+              <label class="field"><span>メール <em>任意</em></span><input id="issuerEmail" type="email" placeholder="hello@example.com"></label>
+              <label class="field full"><span>インボイス登録番号 <em>任意</em></span><input id="registrationNumber" type="text" placeholder="T1234567890123"></label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>宛先</legend>
+            <label class="field full"><span>会社名・氏名 <b>必須</b></span><input id="recipientName" type="text" placeholder="例：株式会社〇〇 御中"></label>
+          </fieldset>
+
+          <fieldset>
+            <legend>発行日</legend>
+            <label class="field full"><span>日付</span><input id="issueDate" type="date"></label>
+          </fieldset>
+
+          <fieldset>
+            <legend>品目</legend>
+            <div id="items" class="items-list"></div>
+            <button id="add-item" class="add-item" type="button">＋ 品目を追加</button>
+          </fieldset>
+
+          <fieldset>
+            <legend>消費税</legend>
+            <div class="choice-row tax-choices">
+              <label class="choice-card"><input type="radio" name="taxRate" value="0.1" checked><span>10%</span></label>
+              <label class="choice-card"><input type="radio" name="taxRate" value="0.08"><span>8%</span></label>
+              <label class="choice-card"><input type="radio" name="taxRate" value="0"><span>なし</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>備考 <em>任意</em></legend>
+            <label class="field full"><span class="sr-only">備考</span><textarea id="notes" rows="4" placeholder="例：お振込先　〇〇銀行 〇〇支店　普通 1234567"></textarea></label>
+          </fieldset>
+        </form>
+      </section>
+
+      <section class="preview-panel" aria-labelledby="preview-title">
+        <div class="panel-heading preview-heading">
+          <p class="panel-kicker">STEP 02 — PREVIEW</p>
+          <h2 id="preview-title">仕上がりを確認</h2>
+        </div>
+        <article class="invoice-preview" aria-label="書類プレビュー">
+          <header class="invoice-header">
+            <div>
+              <p class="invoice-eyebrow">RYOSEIWORLD DOCUMENT</p>
+              <h3 id="preview-document-type">請求書</h3>
+            </div>
+            <div class="invoice-number-block"><span>書類番号</span><strong id="preview-number">INV-20260803-001</strong></div>
+          </header>
+          <div class="invoice-rule"></div>
+          <div class="invoice-meta">
+            <div class="recipient-block"><span>宛先</span><strong id="preview-recipient">宛先を入力してください</strong></div>
+            <div class="date-block"><span>発行日</span><strong id="preview-date">2026年8月3日</strong></div>
+          </div>
+          <div class="issuer-block">
+            <span>発行者</span>
+            <strong id="preview-issuer">発行者名を入力してください</strong>
+            <p id="preview-issuer-details">住所・電話・メール</p>
+            <p id="preview-registration"></p>
+          </div>
+          <table class="invoice-table">
+            <thead><tr><th>品名</th><th>数量</th><th>単価</th><th>小計</th></tr></thead>
+            <tbody id="preview-items"></tbody>
+          </table>
+          <div class="invoice-summary">
+            <div><span>小計</span><strong id="preview-subtotal">¥0</strong></div>
+            <div><span id="preview-tax-label">消費税（10%）</span><strong id="preview-tax">¥0</strong></div>
+            <div class="grand-total"><span>合計金額</span><strong id="preview-total">¥0</strong></div>
+          </div>
+          <div class="notes-block"><span>備考</span><p id="preview-notes">—</p></div>
+          <footer class="invoice-footer">Thank you for your business.</footer>
+        </article>
+        <div class="preview-actions">
+          <button id="print-document" class="button button-primary" type="button">印刷する <span aria-hidden="true">→</span></button>
+          <p class="pdf-note"><strong>PDFとして保存</strong><br>印刷ボタンから「PDFに保存」を選ぶと、PDFとして保存できます。</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer compact-footer"><div class="container footer-bottom"><span>FREE TO USE, MADE TO WORK.</span><span>© RYOSEIWORLD</span></div></footer>
+  <script src="assets/app.js"></script>
+</body>
+</html>
