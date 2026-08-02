@@ -1,0 +1,19 @@
+# 無料請求書メーカー
+
+> ブラウザの中だけで請求書・見積書を作れる無料ツール。会員登録なし、外部への通信なし。運営：RYOSEIWORLD（今井涼晴）。
+
+## 概要
+- 発行者情報・宛先・品目を入力すると、その場で請求書または見積書のプレビューが作成できる
+- 入力データは一切外部に送信されない（完全クライアントサイド）
+- 完全無料。あとから料金は発生しない
+- 印刷、またはPDFとして保存できる
+
+## ページ
+- トップページ: https://imai-design.github.io/free-invoice-site/index.html
+- 作成ページ: https://imai-design.github.io/free-invoice-site/make.html
+
+## 関連ツール
+- 無料ホームページ製作所: https://imai-design.github.io/free-hp-site/
+
+## 運営
+今井涼晴（RYOSEIWORLD）／連絡先: kaeru3160@gmail.com
