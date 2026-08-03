@@ -55,6 +55,29 @@
     return selected ? selected.value : "";
   }
 
+  function validateRequiredFields() {
+    var errorMessage = document.getElementById("form-error");
+    var requiredFields = [
+      { element: document.getElementById("issuerName"), message: "発行者名を入力してください" },
+      { element: document.getElementById("recipientName"), message: "宛先名を入力してください" }
+    ];
+
+    errorMessage.textContent = "";
+    requiredFields.forEach(function (field) { field.element.removeAttribute("aria-invalid"); });
+
+    for (var i = 0; i < requiredFields.length; i += 1) {
+      var field = requiredFields[i];
+      if (!field.element.value.trim()) {
+        field.element.setAttribute("aria-invalid", "true");
+        errorMessage.textContent = field.message;
+        field.element.focus();
+        return false;
+      }
+    }
+
+    return true;
+  }
+
   function updatePreview() {
     var documentType = selectedValue("documentType");
     var issueDate = getValue("issueDate");
@@ -107,6 +130,9 @@
   form.addEventListener("submit", function (event) { event.preventDefault(); });
   form.addEventListener("input", updatePreview);
   form.addEventListener("change", updatePreview);
-  document.getElementById("print-document").addEventListener("click", function () { window.print(); });
+  document.getElementById("print-document").addEventListener("click", function () {
+    if (!validateRequiredFields()) return;
+    window.print();
+  });
   updatePreview();
 }());

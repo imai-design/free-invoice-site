@@ -58,7 +58,7 @@
           <fieldset>
             <legend>発行者情報</legend>
             <div class="form-grid">
-              <label class="field full"><span>屋号・氏名 <b>必須</b></span><input id="issuerName" type="text" placeholder="例：山田デザイン / 山田 太郎"></label>
+              <label class="field full"><span>屋号・氏名 <b>必須</b></span><input id="issuerName" type="text" required aria-required="true" placeholder="例：山田デザイン / 山田 太郎"></label>
               <label class="field full"><span>住所 <em>任意</em></span><input id="issuerAddress" type="text" placeholder="例：東京都渋谷区〇〇 1-2-3"></label>
               <label class="field"><span>電話 <em>任意</em></span><input id="issuerPhone" type="tel" inputmode="tel" placeholder="03-1234-5678"></label>
               <label class="field"><span>メール <em>任意</em></span><input id="issuerEmail" type="email" placeholder="hello@example.com"></label>
@@ -68,7 +68,7 @@
 
           <fieldset>
             <legend>宛先</legend>
-            <label class="field full"><span>会社名・氏名 <b>必須</b></span><input id="recipientName" type="text" placeholder="例：株式会社〇〇 御中"></label>
+            <label class="field full"><span>会社名・氏名 <b>必須</b></span><input id="recipientName" type="text" required aria-required="true" placeholder="例：株式会社〇〇 御中"></label>
           </fieldset>
 
           <fieldset>
@@ -138,6 +138,7 @@
           <button id="print-document" class="button button-primary" type="button">印刷する <span aria-hidden="true">→</span></button>
           <p class="pdf-note"><strong>PDFとして保存</strong><br>印刷ボタンから「PDFに保存」を選ぶと、PDFとして保存できます。</p>
         </div>
+        <p id="form-error" class="form-error" aria-live="polite"></p>
       </section>
     </div>
   </main>
